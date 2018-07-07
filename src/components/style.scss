@@ -1,0 +1,22 @@
+.multi-form {
+    width: 600px;
+    margin: 50px auto;
+
+    .description {
+        color: grey;
+        margin-bottom: 40px;
+    }
+
+    .input-control {
+        margin-top: 30px;
+        .text {
+
+        }
+
+        .input {
+            height: 30px;
+            line-height: 30px;
+            width: 100%;
+        }
+    }
+}

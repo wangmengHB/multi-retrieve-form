@@ -1,0 +1,22 @@
+{
+    "presets": [
+        "react",
+        "stage-2",
+        [
+            "env",
+            {
+                "modules": false,
+                "targets": {
+                    "browsers": [
+                        "> 1%",
+                        "last 2 versions",
+                        "not ie <= 8"
+                    ]
+                }
+            }
+        ]
+    ],
+    "plugins": [
+        "transform-class-properties"
+    ]
+}
