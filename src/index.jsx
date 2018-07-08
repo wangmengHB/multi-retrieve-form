@@ -21,7 +21,7 @@ let sample = {
             name: 'variable B',
             value: '',
             depends: ['001'],
-            expression: 'operation: [[001]] * year',
+            expression: 'operation: getMoney([[001]])',
         },
         {
             id: '003',

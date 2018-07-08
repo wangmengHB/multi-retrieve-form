@@ -57,11 +57,31 @@ class InputControl extends React.Component {
 
     constructor (props) {       
         super(props)
+        this.state = {
+            value: this.props.value
+        }
+        this.handleChange = this.handleChange.bind(this)
         this.handleBlur = this.handleBlur.bind(this)
     }
 
-    handleBlur (e) {
+    componentWillReceiveProps (nextProps, nextState) {
+        if (nextProps.value !== this.state.value) {
+            this.setState({
+                value: nextProps.value
+            })
+        }
+    }
 
+    handleChange (e) {
+        this.setState({
+            value: e.target.value
+        })
+    }
+
+    handleBlur (e) {
+        if (e.target.value !== this.props.value) {
+            this.props.onValueChange(this.props.id, this.state.value)
+        }
     }
 
     render () {
@@ -73,7 +93,8 @@ class InputControl extends React.Component {
             <input 
               className="input" 
               type="text" 
-              value={this.props.value} 
+              value={this.state.value} 
+              onChange={this.handleChange}
               onBlur={this.handleBlur}
             />
           </div>

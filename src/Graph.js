@@ -61,6 +61,10 @@ export default class Graph {
         }
         return this.layers[num]
     }
+
+    getNodeById (id) {
+        return this.map.get(id)
+    }
 }
 
 
