@@ -90,4 +90,44 @@ class Node {
         nodes.forEach(node => node.setTargetNode(this))
     }
 
+    getValue () {
+        return this.ele.value
+    }
+
+    setValue (val) {
+        this.ele.value = val
+    }
+
+    getId () {
+        return this.ele.id
+    }
+
+    getExpression () {
+        return this.ele.expression
+    }
+
+    getSourceNodes () {
+        return this.sourceNodes
+    }
+
+    getAllTargetNodes (list = []) {
+        if (this.targetNodes.length === 0) {
+            return
+        }
+        this.targetNodes.forEach(node => {
+            if (list.indexOf(node) === -1) {
+                list.push(node)
+            }
+            if (node.targetNodes.length > 0) {
+                node.getAllTargetNodes(list)
+            }
+        })
+    }
+
+    getAllSortedTargetNodes () {
+        let list = [];
+        this.getAllTargetNodes(list)
+        list.sort((a, b) => a.level > b.level)
+        return list
+    }
 }

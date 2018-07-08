@@ -47,16 +47,10 @@ module.exports = {
         compress: true,
         host: 'localhost',
         port: 8080,
-        open: false,
+        open: true,
         overlay: { 
             warnings: false, 
             errors: true 
-        },
-        // publicPath: config.dev.assetsPublicPath,
-        // proxy: config.dev.proxyTable,
-        // quiet: true, // necessary for FriendlyErrorsPlugin
-        // watchOptions: {
-        //     poll: config.dev.poll,
-        // }
+        }
     },
 }

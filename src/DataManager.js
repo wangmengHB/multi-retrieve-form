@@ -17,17 +17,16 @@ export default class DataManager {
 
     handleValueChange (id, newVal) {
         let node = this._graph.getNodeById(id)
-        node.ele.value = newVal
-        if (node.targetNodes.length === 0) {
+        node.setValue(newVal)
+        let targetNodes = node.getAllSortedTargetNodes();
+        if (targetNodes.length === 0) {
             return this._render()
         }
-        let targetNodes = node.targetNodes;
-
+    
         doComputationJob(targetNodes, 0).then(() => {
             this._render()
         })
         
-
     }
 
     
@@ -40,21 +39,13 @@ function doComputationJob(targetNodes, index = 0) {
         if (!node) {
             return resolve()
         }
-        let expression = node.ele.expression;
-        let sourceNodes = node.sourceNodes;
+        let expression = node.getExpression();
+        let sourceNodes = node.getSourceNodes();
         let finalExp = genFinalExp(expression, sourceNodes)
         remoteCompute(finalExp).then(val => {
-            node.ele.value = val
-            let nextTargetNodes = node.targetNodes;
-            if (nextTargetNodes.length === 0) {
-                return doComputationJob(targetNodes, ++index).then(() => {
-                    resolve()
-                })
-            }
-            doComputationJob(nextTargetNodes, 0).then(() => {
-                resolve()
-            })
-        })
+            node.setValue(val)
+            return doComputationJob(targetNodes, ++index)
+        }).then(() => resolve())
     })
 }
 
@@ -65,8 +56,8 @@ function genFinalExp (expression, sourceNodes) {
         .map(str => str.replace(/(\[\[)(\w+)(\]\])/, '$2'))
     let sourceValues = sourceIds.map(id => {
         for (let i = 0; i < sourceNodes.length; i++) {
-            if (id === sourceNodes[i].ele.id) {
-                return sourceNodes[i].ele.value
+            if (id === sourceNodes[i].getId()) {
+                return sourceNodes[i].getValue()
             }
         }
     })
@@ -75,9 +66,5 @@ function genFinalExp (expression, sourceNodes) {
         let id = sourceIds[i], val = sourceValues[i]
         exp = exp.replace(`[[${id}]]`, val)
     }
-    if (exp.indexOf('[[004]])') > -1) {
-        debugger;
-    }
-
     return exp
 }

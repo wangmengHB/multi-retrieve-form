@@ -4,9 +4,7 @@
   "description": "this is a design of form component with multi level retrieve function. ",
   "main": "index.js",
   "scripts": {
-    "dev": "webpack-dev-server --inline --progress --config webpack.config.js",
-    "build": "webpack --config webpack.config.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack-dev-server --inline --progress --config webpack.config.js"
   },
   "author": "Meng Wang <wangmeng_hb@163.com>",
   "license": "MIT",
