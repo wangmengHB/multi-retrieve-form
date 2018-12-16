@@ -27,10 +27,7 @@ export default class DataManager {
             this._render()
         })
         
-    }
-
-    
-    
+    }   
 }
 
 function doComputationJob(targetNodes, index = 0) {
